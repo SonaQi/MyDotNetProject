@@ -2,6 +2,7 @@
 using AutoMapper.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MyDotNetProject.Common.Abstracts;
+using MyDotNetProject.Common.Common;
 using MyDotNetProject.Common.Mapper;
 using MyDotNetProject.Common.Provider;
 using System;
@@ -21,6 +22,7 @@ namespace MyDotNetProject.Common
         public static void InitCore(this IServiceCollection services) 
         {
             services.AddSingleton<HttpClientProvider>();
+            services.AddSingleton<ExcelHelper>();
 
             services.AddSingleton<IModelMapper>(sp =>
             {

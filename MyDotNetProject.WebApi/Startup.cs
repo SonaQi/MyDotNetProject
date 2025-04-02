@@ -24,6 +24,7 @@ namespace MyDotNetProject.WebApi
                 // 注册全局输出过滤器
                 options.Filters.Add(typeof(GlobalResponseFilter));
                 options.Filters.Add(typeof(GlobalExceptionFilter));
+                options.Filters.Add(typeof(RequestLoggingFilter));
             });
 
             // 配置Swagger
@@ -43,9 +44,7 @@ namespace MyDotNetProject.WebApi
                 });
             });
 
-            // 业务服务注册
-            //services.AddAutoMapper(typeof(DeclareProfile));
-            
+            // 业务服务注册            
             services.InitService();
             services.InitRepository(Configuration);
             services.InitCore();

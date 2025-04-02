@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using MediatR;
+using Microsoft.Extensions.DependencyInjection;
 using MyDotNetProject.Common;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace MyDotNetProject.ServiceImpl
         public static void InitService(this IServiceCollection services)
         {
             services.Injection("MyDotNetProject.ServiceImpl");
+            services.AddMediatR(System.Reflection.Assembly.GetExecutingAssembly());
         }
     }
 }

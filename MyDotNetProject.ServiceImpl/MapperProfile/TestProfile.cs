@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MyDotNetProject.Common.Abstracts;
 using MyDotNetProject.Common.Mapper;
+using MyDotNetProject.Entities.Commands;
 using MyDotNetProject.Entities.Dto;
 using MyDotNetProject.Entities.Entity;
 using System;
@@ -19,6 +20,7 @@ namespace MyDotNetProject.ServiceImpl.MapperProfile
             this.DestinationMemberNamingConvention = new PascalCaseNamingConvention();
 
             this.CreateMap<Test, TestDto>().ReverseMap();
+            this.CreateMap<Test, AddTestCommand>().ReverseMap();
         }
     }
 }
