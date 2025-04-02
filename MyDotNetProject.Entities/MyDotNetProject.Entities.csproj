@@ -7,8 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Constant\" />
-    <Folder Include="Enum\" />
     <Folder Include="Entity\" />
   </ItemGroup>
 

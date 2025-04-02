@@ -3,33 +3,29 @@ using MyDotNetProject.Common.Abstracts;
 using MyDotNetProject.Common.Extensions;
 using MyDotNetProject.Entities.Dto;
 using MyDotNetProject.Entities.Entity;
-using MyDotNetProject.Repository;
+using MyDotNetProject.Repository.IRepository;
 using MyDotNetProject.ServiceImpl.IService;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyDotNetProject.ServiceImpl.Service
 {
     public class TestService : ITestService
     {
-        private readonly AppDbContext _appDbContext;
+        private readonly ITestRepository _testRepository;
         private readonly ILogger<TestService> _logger;
         private readonly IModelMapper _modelMapper;
 
-        public TestService(AppDbContext appDbContext,
+        public TestService(ITestRepository testRepository,
             ILogger<TestService> logger,
             IModelMapper modelMapper) {
-            _appDbContext = appDbContext;
+            _testRepository = testRepository;
             _logger = logger;
             _modelMapper = modelMapper;
         }
 
         public async Task<List<TestDto>> GetTests()
         {
-            var list = _appDbContext.Tests.ToList();
+            var list = await _testRepository.GetAll();
+            //_testRepository.GetEntities(x => x.id == 1).ToList();
             var testDtos = new List<TestDto>();
             foreach (var item in list)
             {
