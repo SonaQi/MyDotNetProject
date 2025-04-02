@@ -118,6 +118,41 @@ namespace MyDotNetProject.WebApi.Controllers
             // 返回图片
             //return new JsonResult(new { File = File(imageBytes, "image/png"), Data = captchaText });
             return File(imageBytes, "image/png");
-        }        
+        }
+
+        /// <summary>
+        /// 单文件上传
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<BaseResponse<string>> FileUpload([FromForm] IFormFile file)
+        {
+            var response = new BaseResponse<string>();
+            if (file == null)
+            {
+                response.SetFailResult("未接收到文件");
+                return response;
+            }
+
+            // 创建日期相关的子目录路径
+            string subFolderPath = $"{DateTime.Now.Year}-{DateTime.Now.Month.ToString("D2")}";
+            string uploadsFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Uploads", subFolderPath);
+            if (!Directory.Exists(uploadsFolderPath))
+            {
+                Directory.CreateDirectory(uploadsFolderPath);
+            }
+
+            string uniqueFileName = FileHelper.GetUniqueFileName(uploadsFolderPath, file.FileName);
+            string filePath = Path.Combine(uploadsFolderPath, uniqueFileName);
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+
+            response.SetSuccessResult(filePath);
+            return response;
+        }
     }
 }

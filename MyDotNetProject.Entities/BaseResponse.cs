@@ -29,5 +29,17 @@ namespace MyDotNetProject.Entities
         /// 数据
         /// </summary>
         public T data { get; set; }
+
+        public void SetSuccessResult(T data)
+        {
+            this.code = 0;
+            this.data = data;
+        }
+
+        public void SetFailResult(string message)
+        {
+            this.code = -1;
+            this.message = message;
+        }
     }
 }
