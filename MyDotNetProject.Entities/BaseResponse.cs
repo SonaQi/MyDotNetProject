@@ -25,6 +25,17 @@ namespace MyDotNetProject.Entities
     /// <typeparam name="T"></typeparam>
     public class BaseResponse<T> : BaseResponse
     {
+        public BaseResponse()
+        {
+            this.code = 0;
+        }
+
+        public BaseResponse(T data)
+        {
+            this.code = 0;
+            this.data = data;
+        }
+
         /// <summary>
         /// 数据
         /// </summary>

@@ -46,7 +46,7 @@ namespace MyDotNetProject.WebApi.Controllers
         public async Task<BaseResponse<bool>> AddTest([FromBody] AddTestCommand command)
         {
             var result = await this._mediator.Send(command);
-            return new BaseResponse<bool> { data = result };
+            return new BaseResponse<bool>(result);
         }        
 
         [HttpGet]
@@ -54,14 +54,14 @@ namespace MyDotNetProject.WebApi.Controllers
         {
 
             var result = await _testService.GetTests();
-            return new BaseResponse<List<TestDto>> { data = result };
+            return new BaseResponse<List<TestDto>>(result);
         }
 
         [HttpGet]
         public async Task<BaseResponse<List<TestDto>>> GetAllTestCache()
         {
             var result = await _testService.GetAllTestCache();
-            return new BaseResponse<List<TestDto>> { data = result };
+            return new BaseResponse<List<TestDto>>(result);
         }
 
         /// <summary>
@@ -108,7 +108,7 @@ namespace MyDotNetProject.WebApi.Controllers
 
             // ¥¶¿Ìrows
 
-            return new BaseResponse<bool> { data = true };
+            return new BaseResponse<bool>(true);
         }
 
         /// <summary>

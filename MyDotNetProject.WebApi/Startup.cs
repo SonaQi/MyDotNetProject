@@ -1,4 +1,5 @@
 ﻿using MyDotNetProject.Common;
+using MyDotNetProject.Common.Authentication;
 using MyDotNetProject.Common.MemoryCache;
 using MyDotNetProject.Repository;
 using MyDotNetProject.ServiceImpl;
@@ -56,6 +57,7 @@ namespace MyDotNetProject.WebApi
 
             // 加载配置
             services.Configure<BasicDataCache>(Configuration.GetSection("BasicDataCache"));
+            services.Configure<JwtSecurityConfig>(Configuration.GetSection("JwtSecurityConfig"));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -2,6 +2,7 @@
 using AutoMapper.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MyDotNetProject.Common.Abstracts;
+using MyDotNetProject.Common.Authentication;
 using MyDotNetProject.Common.Common;
 using MyDotNetProject.Common.Mapper;
 using MyDotNetProject.Common.MemoryCache;
@@ -24,6 +25,7 @@ namespace MyDotNetProject.Common
         {
             services.AddSingleton<HttpClientProvider>();
             services.AddSingleton<ExcelHelper>();
+            services.AddSingleton<JwtHelper>();
             services.AddSingleton<IMemoryCacheService, MemoryCacheService>();
 
             services.AddSingleton<IModelMapper>(sp =>
