@@ -47,12 +47,20 @@ namespace MyDotNetProject.WebApi.Controllers
         {
             var result = await this._mediator.Send(command);
             return new BaseResponse<bool> { data = result };
+        }        
+
+        [HttpGet]
+        public async Task<BaseResponse<List<TestDto>>> GetTests()
+        {
+
+            var result = await _testService.GetTests();
+            return new BaseResponse<List<TestDto>> { data = result };
         }
 
         [HttpGet]
-        public async Task<BaseResponse<List<TestDto>>> GetTests() {
-
-            var result = await _testService.GetTests();
+        public async Task<BaseResponse<List<TestDto>>> GetAllTestCache()
+        {
+            var result = await _testService.GetAllTestCache();
             return new BaseResponse<List<TestDto>> { data = result };
         }
 

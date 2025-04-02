@@ -1,6 +1,9 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using MyDotNetProject.Common.Abstracts;
 using MyDotNetProject.Common.Extensions;
+using MyDotNetProject.Common.MemoryCache;
 using MyDotNetProject.Entities.Dto;
 using MyDotNetProject.Entities.Entity;
 using MyDotNetProject.Repository.IRepository;
@@ -13,13 +16,23 @@ namespace MyDotNetProject.ServiceImpl.Service
         private readonly ITestRepository _testRepository;
         private readonly ILogger<TestService> _logger;
         private readonly IModelMapper _modelMapper;
+        private readonly IMemoryCacheService _cacheService;
+        private readonly int cacheSeconds;
+        private static object obj = new object();
 
-        public TestService(ITestRepository testRepository,
+
+        public TestService(IOptions<BasicDataCache> options, ITestRepository testRepository,
             ILogger<TestService> logger,
-            IModelMapper modelMapper) {
+            IModelMapper modelMapper, 
+            IMemoryCacheService cacheService)
+        {
             _testRepository = testRepository;
             _logger = logger;
             _modelMapper = modelMapper;
+            _cacheService = cacheService;
+
+            cacheSeconds = options.Value.CacheSeconds;
+            _cacheService = cacheService;
         }
 
         public async Task<List<TestDto>> GetTests()
@@ -35,6 +48,25 @@ namespace MyDotNetProject.ServiceImpl.Service
             
             _logger.LogInformation(list.ToJson());
             return testDtos;
+        }
+
+        public async Task<List<TestDto>> GetAllTestCache() 
+        {
+            string key = "key_test";
+            List<TestDto> tests = this._cacheService.GetList<TestDto>(key);
+            if (tests != null && tests.Count > 0)
+            {
+                return tests;
+            }
+            lock (obj)
+            {
+                tests = this.GetTests().Result;
+                if (tests != null && tests.Count > 0)
+                {
+                    this._cacheService.Set(key, tests, new TimeSpan(0, 0, cacheSeconds));
+                }
+                return tests;
+            }
         }
     }
 }

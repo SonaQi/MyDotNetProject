@@ -12,5 +12,7 @@ namespace MyDotNetProject.ServiceImpl.IService
     public interface ITestService : IInjection
     {
         Task<List<TestDto>> GetTests();
+
+        Task<List<TestDto>> GetAllTestCache();
     }
 }

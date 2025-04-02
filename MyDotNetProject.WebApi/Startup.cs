@@ -1,4 +1,5 @@
 ﻿using MyDotNetProject.Common;
+using MyDotNetProject.Common.MemoryCache;
 using MyDotNetProject.Repository;
 using MyDotNetProject.ServiceImpl;
 using MyDotNetProject.WebApi.Filter;
@@ -49,6 +50,8 @@ namespace MyDotNetProject.WebApi
             services.InitRepository(Configuration);
             services.InitCore();
 
+            // 加载配置
+            services.Configure<BasicDataCache>(Configuration.GetSection("BasicDataCache"));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

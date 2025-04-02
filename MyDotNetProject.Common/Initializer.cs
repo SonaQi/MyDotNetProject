@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using MyDotNetProject.Common.Abstracts;
 using MyDotNetProject.Common.Common;
 using MyDotNetProject.Common.Mapper;
+using MyDotNetProject.Common.MemoryCache;
 using MyDotNetProject.Common.Provider;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,7 @@ namespace MyDotNetProject.Common
         {
             services.AddSingleton<HttpClientProvider>();
             services.AddSingleton<ExcelHelper>();
+            services.AddSingleton<IMemoryCacheService, MemoryCacheService>();
 
             services.AddSingleton<IModelMapper>(sp =>
             {
