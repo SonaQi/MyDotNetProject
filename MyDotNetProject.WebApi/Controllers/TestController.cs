@@ -64,6 +64,10 @@ namespace MyDotNetProject.WebApi.Controllers
             return new BaseResponse<List<TestDto>> { data = result };
         }
 
+        /// <summary>
+        /// 导出
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<ActionResult<object>> ExportTests()
         {
@@ -73,6 +77,12 @@ namespace MyDotNetProject.WebApi.Controllers
             return File(_excelHelper.GetByteArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "测试导出.xlsx");
         }
 
+        /// <summary>
+        /// 导入
+        /// </summary>
+        /// <param name="fileUrl"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
         [HttpPost]
         public async Task<BaseResponse<bool>> ImportTest([FromBody] string fileUrl) 
         {
