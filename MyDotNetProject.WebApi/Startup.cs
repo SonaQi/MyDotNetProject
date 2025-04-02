@@ -29,7 +29,11 @@ namespace MyDotNetProject.WebApi
             });
 
             // 配置Swagger
-            services.AddSwaggerGen();
+            services.AddSwaggerGen(c =>
+            {
+                // 添加对文件上传的支持
+                c.OperationFilter<SwaggerFileUploadFilter>();
+            });
             services.AddEndpointsApiExplorer();// API探索者
 
             services.AddMemoryCache();
