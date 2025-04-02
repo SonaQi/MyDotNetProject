@@ -19,8 +19,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyDotNetProject.Repository"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyDotNetProject.ServiceImpl", "..\MyDotNetProject.ServiceImpl\MyDotNetProject.ServiceImpl.csproj", "{0FFB69CB-DD5A-4D73-846B-6BF8692E8F8C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Doc", "Doc", "{769A9B71-51B2-48B1-9D65-8CEED920C77B}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
